@@ -66,7 +66,24 @@ function isNumber(event,value) {
 <input id="branchAcct" onkeydown="return isNumber(event,this)" maxlength="4" type="text" class="form-control input-height " ng-model="classModel.branchAcct" ng-disabled="(!classModel.branchAcctFlag)?activebranchAcctFlag():disablebranchAcctFlag()"/>
 <label class=" mandatory"></label>
 </div>
-
-
+//------------------------------------------codeKey check number 1-9 and length 1-4----------------------------------------------------
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    <script type="text/javascript" src="https://cdn.rawgit.com/AlphaGit/ng-pattern-restrict/master/src/ng-pattern-restrict.min.js"></script>
+    <script type="text/javascript">
+        var app = angular.module('MyApp', ['ngPatternRestrict'])
+        app.controller('MyController', function ($scope) {
+        });
+    </script>
+    <div ng-app="MyApp" ng-controller="MyController">
+        Passport Number:
+        <input maxlength="4" type="text" id="txtPassportNumber" pattern="^[0-9]+$" ng-pattern-restrict />
+    </div>
+</body>
+</html>
 
         
