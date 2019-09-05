@@ -59,4 +59,14 @@
                 document.getElementById(idFromelement).nextElementSibling.innerHTML='';    
             }
 //------------------------------------------codeKey check number 1-9 and length 1-4----------------------------------------------------
+
+
+<div class="col-xs-10">
+<label>Branch Acct</label>
+<input id="branchAcct" onkeydown="return isNumber(event,this)" maxlength="4" type="text" class="form-control input-height " ng-model="classModel.branchAcct" ng-disabled="(!classModel.branchAcctFlag)?activebranchAcctFlag():disablebranchAcctFlag()"/>
+<label class=" mandatory"></label>
+</div>
+
+
+
         
