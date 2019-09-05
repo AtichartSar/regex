@@ -1,43 +1,45 @@
 //------------------------------------------codeKey check number 1-9 and length 1-4----------------------------------------------------
             function isNumber(event,value) {
-           // value.value.length เชคขนาด digit
-           // idFromelement เก็บค่า id ที่เรียกใช้ฟังชัน
-           // charCode เก็บ รหัสแป้นพิมพ์จากการกดปุ่ม
-           // charCode == 8 ปุ่ม Backspace
-           //setLength  == ขนาด
-            var setLength=4; 
-            var idFromelement=value.id;
-            var charCode = (event.which) ? event.which : event.keyCode;
-           console.log(charCode+" "+value.value.length); 
-           if(charCode==8)
-                {
-                    console.log("function when charCode Backspace");
-                     if(value.value.length<=1){
-                         invalid(idFromelement);
-                     }else{              
-                        value.value.length=value.value.length+1;
-                        valid(idFromelement);
-                     }                
-                    
+                    // value.value.length เชคขนาด digit
+                    // idFromelement เก็บค่า id ที่เรียกใช้ฟังชัน
+                    // charCode เก็บ รหัสแป้นพิมพ์จากการกดปุ่ม
+                    // charCode == 8 ปุ่ม Backspace
+                    //setLength  == ตั้งค่าขนาดที่เชค
+                    // setMessage==ตั้งค่าข้อความแจ้งเตือนเมื่อ valid
+                     var setLength=4; 
+                     var idFromelement=value.id;
+                     var charCode = (event.which) ? event.which : event.keyCode;
+                     var setMessage='Only 4 digit';
+                    console.log(charCode+" "+value.value.length); 
+                    if(charCode==8)
+                         {
+                             console.log("function when charCode Backspace");
+                              if(value.value.length<=1){
+                                  invalid(idFromelement);
+                              }else{              
+                                 value.value.length=value.value.length+1;
+                                 valid(idFromelement,setMessage);
+                              }                
+
+                         }
+                    else if(value.value.length>=0&&value.value.length<=(setLength-1))
+                         {
+                           if((charCode <37 || charCode > 40)){
+                               console.log("charCodecharCode",charCode);
+                               value.value.length=value.value.length+1;
+                               if(!checkCharCode(idFromelement,event,setMessage))return false;
+                           }
+
+                           valid(idFromelement,setMessage);
+                         } 
+                    if((value.value.length==(setLength-1))&&charCode!=8&&(charCode <37 || charCode > 40))
+                         {
+                             console.log("function number-length =4",value.value.length);
+                            invalid(idFromelement);
+                             return true;
+                         }  
                 }
-           else if(value.value.length>=0&&value.value.length<=(setLength-1))
-                {
-                  if((charCode <37 || charCode > 40)){
-                      console.log("charCodecharCode",charCode);
-                      value.value.length=value.value.length+1;
-                      if(!checkCharCode(idFromelement,event))return false;
-                  }
-              
-                  valid(idFromelement);
-                } 
-           if((value.value.length==(setLength-1))&&charCode!=8&&(charCode <37 || charCode > 40))
-                {
-                    console.log("function number-length =4",value.value.length);
-                   invalid(idFromelement);
-                    return true;
-                }  
-         }
-         function checkCharCode(idFromelement,event){
+         function checkCharCode(idFromelement,event,setMessage){
              var regexNumber = new RegExp("^[0-9]+$");
              var regexThai = new RegExp("^[ก-๏\s]+$");
              var KeybordEvent=event.key;
@@ -47,12 +49,12 @@
                 if(regexNumber.test(KeybordEvent)){
                         return true;
                 }
-                        valid(idFromelement)
+                        valid(idFromelement,setMessage)
                          return false;
             }
-            function valid(idFromelement){
+            function valid(idFromelement,setMessage){
                 $('#'+idFromelement).css('border-color', 'red');
-                document.getElementById(idFromelement).nextElementSibling.innerHTML="Only 4 digit";
+                document.getElementById(idFromelement).nextElementSibling.innerHTML=setMessage;
             }
             function invalid(idFromelement){
                 $('#'+idFromelement).css('border-color', '');
