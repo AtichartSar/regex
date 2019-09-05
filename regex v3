@@ -1,15 +1,18 @@
 //------------------------------------------codeKey check number 1-9 and length 1-4----------------------------------------------------
-            function isNumber(event,value) {
-                    // value.value.length เชคขนาด digit
+function isNumber(event,value) {
+                    // setLength  == ตั้งค่าขนาดไว้เช็ค
                     // idFromelement เก็บค่า id ที่เรียกใช้ฟังชัน
-                    // charCode เก็บ รหัสแป้นพิมพ์จากการกดปุ่ม
-                    // charCode == 8 ปุ่ม Backspace
-                    //setLength  == ตั้งค่าขนาดที่เชค
-                    // setMessage==ตั้งค่าข้อความแจ้งเตือนเมื่อ valid
+                    // charCode เก็บ รหัสแป้นพิมพ์จากการกดปุ่ม charCode ==8 ปุ่ม <Backspace> 
+                    // setMessage==ตั้งค่าข้อความแจ้งเตือนล่าง class=" mandatory" เมื่อ valid
+                    // value.value.length== ขนาดของค่า value
+                    //var str = String.fromCharCode(!event.charCode ? event.which : event.charCode);
+                    //var regexNumber = new RegExp("^[0-9]+$");
+                    //var regexThai = new RegExp("^[ก-๏\s]+$");
                      var setLength=4; 
                      var idFromelement=value.id;
                      var charCode = (event.which) ? event.which : event.keyCode;
                      var setMessage='Only 4 digit';
+                     var setRegex = new RegExp("^[0-9]+$");
                     console.log(charCode+" "+value.value.length); 
                     if(charCode==8)
                          {
@@ -20,16 +23,14 @@
                                  value.value.length=value.value.length+1;
                                  valid(idFromelement,setMessage);
                               }                
-
                          }
                     else if(value.value.length>=0&&value.value.length<=(setLength-1))
                          {
                            if((charCode <37 || charCode > 40)){
                                console.log("charCodecharCode",charCode);
                                value.value.length=value.value.length+1;
-                               if(!checkCharCode(idFromelement,event,setMessage))return false;
+                               if(!checkCharCode(idFromelement,event,setMessage,setRegex))return false;
                            }
-
                            valid(idFromelement,setMessage);
                          } 
                     if((value.value.length==(setLength-1))&&charCode!=8&&(charCode <37 || charCode > 40))
@@ -38,25 +39,22 @@
                             invalid(idFromelement);
                              return true;
                          }  
-                }
-         function checkCharCode(idFromelement,event,setMessage){
-             var regexNumber = new RegExp("^[0-9]+$");
-             var regexThai = new RegExp("^[ก-๏\s]+$");
+             }
+         function checkCharCode(idFromelement,event,setMessage,setRegex){
+             var regexNumber = setRegex;
              var KeybordEvent=event.key;
-             var str = String.fromCharCode(!event.charCode ? event.which : event.charCode);
-             console.log("event",event);
-             console.log("str",str);
+             console.log("event",event);          
                 if(regexNumber.test(KeybordEvent)){
                         return true;
                 }
                         valid(idFromelement,setMessage)
                          return false;
             }
-            function valid(idFromelement,setMessage){
+         function valid(idFromelement,setMessage){
                 $('#'+idFromelement).css('border-color', 'red');
                 document.getElementById(idFromelement).nextElementSibling.innerHTML=setMessage;
             }
-            function invalid(idFromelement){
+         function invalid(idFromelement){
                 $('#'+idFromelement).css('border-color', '');
                 document.getElementById(idFromelement).nextElementSibling.innerHTML='';    
             }
