@@ -1,0 +1,5 @@
+                $scope.test="1,2,3,4,5";
+                $scope.test2="--2,df,,,3=,1..12*3,2"
+                console.log("$scope.test",$scope.test);
+                 $scope.result=$scope.test2.split(/[ ,.*=-]|[a-z]/);
+                 var result1=$scope.result.join("");
